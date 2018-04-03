@@ -1,6 +1,7 @@
 # VIs-Earthquakes
 
 1. Anaconda: https://www.anaconda.com/download/#macos
+2.The ANSS Developer's Corner API for USGS: https://github.com/usgs/devcorner
 
 We might use: 
 1. traitsUI: https://github.com/enthought/traitsui for GUI
