@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script>L_PREFER_CANVAS = false; L_NO_TOUCH = false; L_DISABLE_3D = false;</script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+    <link rel="stylesheet" href="https://rawgit.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css" />
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <style> #map_2bdee48d790545938b2e5c51916ce71d {
+                position : relative;
+                width : 100.0%;
+                height: 100.0%;
+                left: 0.0%;
+                top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_2bdee48d790545938b2e5c51916ce71d" ></div>
+        
+</body>
+<script>    
+    
+
+            
+                var bounds = null;
+            
+
+            var map_2bdee48d790545938b2e5c51916ce71d = L.map(
+                                  'map_2bdee48d790545938b2e5c51916ce71d',
+                                  {center: [35.607451,140.10634],
+                                  zoom: 9,
+                                  maxBounds: bounds,
+                                  layers: [],
+                                  worldCopyJump: false,
+                                  crs: L.CRS.EPSG3857
+                                 });
+            
+        
+    
+            var tile_layer_39548ff6fd6343639c41b944e4bd5b13 = L.tileLayer(
+                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                {
+  "attribution": null,
+  "detectRetina": false,
+  "maxZoom": 18,
+  "minZoom": 1,
+  "noWrap": false,
+  "subdomains": "abc"
+}
+                ).addTo(map_2bdee48d790545938b2e5c51916ce71d);
+        
+    
+            var circle_marker_f23d04dffdd44d6ab619474561c20c2b = L.circleMarker(
+                [35.607451,140.10634],
+                {
+  "bubblingMouseEvents": true,
+  "color": "#3388ff",
+  "dashArray": null,
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#3388ff",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "lineCap": "round",
+  "lineJoin": "round",
+  "opacity": 1.0,
+  "radius": 10,
+  "stroke": true,
+  "weight": 3
+}
+                ).addTo(map_2bdee48d790545938b2e5c51916ce71d);
+            
+    
+            var popup_01432ee7033f47d6a7357588af90f30d = L.popup({maxWidth: '300'});
+
+            
+                var html_3971dc59229f4e24abda2ebb47ae8a92 = $('<div id="html_3971dc59229f4e24abda2ebb47ae8a92" style="width: 100.0%; height: 100.0%;">千葉市</div>')[0];
+                popup_01432ee7033f47d6a7357588af90f30d.setContent(html_3971dc59229f4e24abda2ebb47ae8a92);
+            
+
+            circle_marker_f23d04dffdd44d6ab619474561c20c2b.bindPopup(popup_01432ee7033f47d6a7357588af90f30d);
+
+            
+        
+    
+            var circle_marker_b2a5ecb7a8e64ce5bec9c5291a350c2d = L.circleMarker(
+                [34.996596,139.869906],
+                {
+  "bubblingMouseEvents": true,
+  "color": "#3388ff",
+  "dashArray": null,
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#3388ff",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "lineCap": "round",
+  "lineJoin": "round",
+  "opacity": 1.0,
+  "radius": 10,
+  "stroke": true,
+  "weight": 3
+}
+                ).addTo(map_2bdee48d790545938b2e5c51916ce71d);
+            
+    
+            var popup_90ecae56ae5148d0bf2a95c055c19282 = L.popup({maxWidth: '300'});
+
+            
+                var html_42fcefc274db43c9a2ec1cce01886801 = $('<div id="html_42fcefc274db43c9a2ec1cce01886801" style="width: 100.0%; height: 100.0%;">館山市</div>')[0];
+                popup_90ecae56ae5148d0bf2a95c055c19282.setContent(html_42fcefc274db43c9a2ec1cce01886801);
+            
+
+            circle_marker_b2a5ecb7a8e64ce5bec9c5291a350c2d.bindPopup(popup_90ecae56ae5148d0bf2a95c055c19282);
+
+            
+        
+    
+            var circle_marker_1c93c02dd5c443e09a7409cb6a643229 = L.circleMarker(
+                [35.734795,140.826926],
+                {
+  "bubblingMouseEvents": true,
+  "color": "#3388ff",
+  "dashArray": null,
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#3388ff",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "lineCap": "round",
+  "lineJoin": "round",
+  "opacity": 1.0,
+  "radius": 10,
+  "stroke": true,
+  "weight": 3
+}
+                ).addTo(map_2bdee48d790545938b2e5c51916ce71d);
+            
+    
+            var popup_5244206d03a643e1a3f7eb440aff707b = L.popup({maxWidth: '300'});
+
+            
+                var html_b237595c4c0e4bc3b685b84532312c26 = $('<div id="html_b237595c4c0e4bc3b685b84532312c26" style="width: 100.0%; height: 100.0%;">銚子市</div>')[0];
+                popup_5244206d03a643e1a3f7eb440aff707b.setContent(html_b237595c4c0e4bc3b685b84532312c26);
+            
+
+            circle_marker_1c93c02dd5c443e09a7409cb6a643229.bindPopup(popup_5244206d03a643e1a3f7eb440aff707b);
+
+            
+        
+    
+            var circle_marker_83b735d2ee8644eaacbaf891c2dc750a = L.circleMarker(
+                [35.653146,139.902058],
+                {
+  "bubblingMouseEvents": true,
+  "color": "#3388ff",
+  "dashArray": null,
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#3388ff",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "lineCap": "round",
+  "lineJoin": "round",
+  "opacity": 1.0,
+  "radius": 10,
+  "stroke": true,
+  "weight": 3
+}
+                ).addTo(map_2bdee48d790545938b2e5c51916ce71d);
+            
+    
+            var popup_f6824580570046228a7c5ef85148b860 = L.popup({maxWidth: '300'});
+
+            
+                var html_c438a8281b014bf2a5d986edd704f9f0 = $('<div id="html_c438a8281b014bf2a5d986edd704f9f0" style="width: 100.0%; height: 100.0%;">浦安市</div>')[0];
+                popup_f6824580570046228a7c5ef85148b860.setContent(html_c438a8281b014bf2a5d986edd704f9f0);
+            
+
+            circle_marker_83b735d2ee8644eaacbaf891c2dc750a.bindPopup(popup_f6824580570046228a7c5ef85148b860);
+
+            
+        
+</script>
