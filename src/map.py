@@ -13,4 +13,4 @@ chiba_map = folium.Map(location=[35.607451, 140.106340], zoom_start=9)
 for i, r in chiba_cities.iterrows():
     folium.CircleMarker(location=[r['latitude'], r['longtude']], popup=r['city']).add_to(chiba_map)
 
-chiba_map.save("html/map.html")
+chiba_map.save("../html/map.html")
