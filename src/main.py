@@ -1,6 +1,9 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+import geoplotlib
+from geoplotlib.utils import read_csv
+
 
 import sys
 
@@ -69,10 +72,15 @@ class Options(QFrame):
         options_layout.addLayout(self.region_layout())
 
         vis_button = QPushButton('Visualize')
+        vis_button.clicked.connect(self.buttonClicked)
         main_layout.addLayout(options_layout)
         main_layout.addWidget(vis_button)
 
-
+    def buttonClicked(self):
+        sender = self.sender()
+        data = read_csv('data/bus.csv')
+        geoplotlib.dot(data)
+        geoplotlib.show()
 
     def magnitude_layout(self):
         mg_layout = QVBoxLayout()
