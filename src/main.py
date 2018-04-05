@@ -1,71 +1,88 @@
-# import geoplotlib as gl
-import urllib
-import csv
-import io
-import tkinter as tk
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+
+import sys
 
 
-class App(tk.Frame):
-    def __init__(self, master=None):
-        super().__init__(master)
-        basicOptions = tk.Label(self, text="Basic Options").grid(row=0, column=1)
+def getCurrentDate():
+    now = QDateTime.currentDateTime()
+    return now.toUTC().toString()
 
-        magnitudeFrame = tk.Frame(self)
-        magnitudeFrame.grid(row=1, column=0)
-
-        magnitude = tk.Label(magnitudeFrame, text="Magnitude:").grid(row=0)
-        magnitudeSize = tk.Label(magnitudeFrame, text="Note: -1 to 10", font=2).grid(row=1)
-        mgList = tk.Spinbox(magnitudeFrame, from_=-1, to=10, state=tk.NORMAL)  # .grid(row=2, column=0)
-        mgList.grid(row=2)
-
-        dateTimeFrame = tk.Frame(self)
-        dateTimeFrame.grid(row=1, column=1)
-
-        dateTime = tk.Label(dateTimeFrame, text="Date & Time:").grid(row=0)
-
-        startLabel = tk.Label(dateTimeFrame, text="Start (UTC)").grid(row=1)
-        start_v = tk.StringVar(dateTimeFrame, value='2018-03-27 00:00:00')
-        startEntery = tk.Entry(dateTimeFrame, textvariable=start_v).grid(row=2)
-
-        end_v = tk.StringVar(dateTimeFrame, value='2018-04-03 23:59:59')
-        endLabel = tk.Label(dateTimeFrame, text="End (UTC):").grid(row=3)
-        endEntery = tk.Entry(dateTimeFrame, textvariable=end_v).grid(row=4)
-
-        geographicRegionFrame = tk.Frame(self)
-        geographicRegionFrame.grid(row=1, column=2)
-
-        geographicRegion = tk.Label(geographicRegionFrame, text="Geographic Region:").grid(row=0)
-        gREntery = tk.Entry(geographicRegionFrame, text="enter ..").grid(row=1)
-
-        visButton = tk.Button(self, text="Visualize")
-        visButton.grid(row=3, column=1)
-        visButton.bind("<Button-1>", self.test)
-
-        self.pack()
-
-    def test(self, event):
-        data = self.csv_import(
-            'https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=2018-03-01&endtime=2018-04-01')
-        print(next(data))
-
-        # geoplotlib.dot(data)
-        # geoplotlib.show()
-
-    def csv_import(self, url):
-        url_open = urllib.request.urlopen(url)
-        csvfile = csv.reader(io.StringIO(url_open.read().decode('utf-8')), delimiter=',')
-        return csvfile
+def getBeforeCurrentDate():
+    now = QDateTime.currentDateTime()
+    # now.set
+    return now.toUTC().toString()
 
 
-# create the application
-myapp = App()
+class MainWindow(QWidget):
 
-#
-# here are method calls to the window manager class
-#
-myapp.master.title("Visualization of Epic Earthquakes")
-myapp.master.minsize(300, 300)
-myapp.master.maxsize(1000, 1000)
+    def __init__(self):
+        super().__init__()
 
-# start the program
-myapp.mainloop()
+        self.initUI()
+
+    def initUI(self):
+        main_layout = QGridLayout()
+        self.setLayout(main_layout)
+
+        title_label = QLabel('Welcome to Visualization of Epic Earthquakes')
+        title_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        title_label.setAlignment(Qt.AlignCenter)
+
+        main_layout.addWidget(title_label, 0, 1)
+
+        magnitude_label = QLabel('Magnitude:')
+        main_layout.addWidget(magnitude_label, 1, 0)
+
+        sp = QSpinBox()
+        sp.setRange(-1, 10)
+        sp.setValue(-1)
+        main_layout.addWidget(sp, 3, 0)
+
+        date_time_label = QLabel('Date & Time:')
+        main_layout.addWidget(date_time_label, 1, 1)
+
+        date_time_label = QLabel('From:')
+        main_layout.addWidget(date_time_label, 2, 1)
+
+        yesterday = QDateTimeEdit()
+        now = QDateTime.currentDateTime()
+        now.addDays(-1)
+        yesterday.setDateTime(now.toUTC())
+        # some_date = QtCore.QDate(2011, 4, 22)  # Year, Month, Day
+
+        main_layout.addWidget(yesterday, 3, 1)
+
+        date_time_label = QLabel('To:')
+        main_layout.addWidget(date_time_label, 4, 1)
+
+        myDTE = QDateTimeEdit()
+        myDTE.setDateTime(QDateTime.currentDateTime().toUTC())
+
+        main_layout.addWidget(myDTE, 5, 1)
+
+        geographic_region_label = QLabel('Geographic Region:')
+        main_layout.addWidget(geographic_region_label, 1, 2)
+
+        worldRadio = QRadioButton("World")
+        main_layout.addWidget(worldRadio, 2, 2)
+
+        worldRadio = QRadioButton("USA")
+        main_layout.addWidget(worldRadio, 3, 2)
+
+        button = QPushButton("Visualize")
+
+        main_layout.addWidget(button, 6, 1)
+
+        self.setMinimumSize(400, 400)
+
+        self.setWindowTitle('Visualization of Epic Earthquakes')
+
+        self.show()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MainWindow()
+    sys.exit(app.exec_())
