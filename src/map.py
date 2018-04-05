@@ -8,9 +8,31 @@ chiba_cities = pd.DataFrame({
     'population': [975535, 46349, 61674, 168169]
 })
 
-chiba_map = folium.Map(location=[35.607451, 140.106340], zoom_start=9)
+chiba_map = folium.Map(location=[35.607451, 140.106340], zoom_start=5)
 
 for i, r in chiba_cities.iterrows():
-    folium.CircleMarker(location=[r['latitude'], r['longtude']], popup=r['city']).add_to(chiba_map)
+    temp = r['population']
+    print(temp)
+    folium.CircleMarker([r['latitude'], r['longtude']],
+                        radius=temp/10000,
+                        popup=r['city'],
+                        color='red',
+                        fill=True,
+                        fill_color='red',
+                        ).add_to(chiba_map)
+fn = "html/map.html"
+chiba_map.save(fn)
 
-chiba_map.save("../html/map.html")
+import os
+import time
+from selenium import webdriver
+
+tmpurl = "file://{path}/{mapfile}".format(path=os.getcwd(),mapfile=fn)
+print(tmpurl)
+
+browser = webdriver.Chrome()
+browser.get(tmpurl)
+#Give the map tiles some time to load
+# time.sleep(1)
+browser.save_screenshot('screenshots/map1.png')
+browser.quit()
