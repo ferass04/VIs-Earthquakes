@@ -15,7 +15,7 @@
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     
-            <style> #map_cac890acb02243468c8bbfc4a93a1099 {
+            <style> #map_b880abe6158c44b0a39ca0ecc7cd2448 {
                 position : relative;
                 width : 100.0%;
                 height: 100.0%;
@@ -27,7 +27,7 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_cac890acb02243468c8bbfc4a93a1099" ></div>
+            <div class="folium-map" id="map_b880abe6158c44b0a39ca0ecc7cd2448" ></div>
         
 </body>
 <script>    
@@ -37,10 +37,10 @@
                 var bounds = null;
             
 
-            var map_cac890acb02243468c8bbfc4a93a1099 = L.map(
-                                  'map_cac890acb02243468c8bbfc4a93a1099',
-                                  {center: [35.607451,140.10634],
-                                  zoom: 5,
+            var map_b880abe6158c44b0a39ca0ecc7cd2448 = L.map(
+                                  'map_b880abe6158c44b0a39ca0ecc7cd2448',
+                                  {center: [45.5236,-122.675],
+                                  zoom: 13,
                                   maxBounds: bounds,
                                   layers: [],
                                   worldCopyJump: false,
@@ -49,8 +49,8 @@
             
         
     
-            var tile_layer_36c61da57f5349d8a6980595161a0568 = L.tileLayer(
-                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            var tile_layer_d400840732024b55b373ab3a28eca874 = L.tileLayer(
+                'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',
                 {
   "attribution": null,
   "detectRetina": false,
@@ -59,137 +59,60 @@
   "noWrap": false,
   "subdomains": "abc"
 }
-                ).addTo(map_cac890acb02243468c8bbfc4a93a1099);
+                ).addTo(map_b880abe6158c44b0a39ca0ecc7cd2448);
         
     
-            var circle_marker_b108d69731b843768ae3d71351cb42be = L.circleMarker(
-                [35.607451,140.10634],
+
+            var marker_f2377f0b24594b07b9bd58b85fa4a121 = L.marker(
+                [45.5244,-122.6699],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(map_b880abe6158c44b0a39ca0ecc7cd2448);
+            
+    
+            var popup_14dccd7bc3744c1691c4ac535a3d0c89 = L.popup({maxWidth: '300'});
+
+            
+                var html_7a9a9028efc84225a44b7a6ba00fc134 = $('<div id="html_7a9a9028efc84225a44b7a6ba00fc134" style="width: 100.0%; height: 100.0%;">The Waterfront</div>')[0];
+                popup_14dccd7bc3744c1691c4ac535a3d0c89.setContent(html_7a9a9028efc84225a44b7a6ba00fc134);
+            
+
+            marker_f2377f0b24594b07b9bd58b85fa4a121.bindPopup(popup_14dccd7bc3744c1691c4ac535a3d0c89);
+
+            
+        
+    
+            var circle_marker_646e2680f83e4ce3baad70a152e51dd4 = L.circleMarker(
+                [45.5215,-122.6261],
                 {
   "bubblingMouseEvents": true,
-  "color": "red",
+  "color": "#3186cc",
   "dashArray": null,
   "dashOffset": null,
-  "fill": true,
-  "fillColor": "red",
+  "fill": false,
+  "fillColor": "#3186cc",
   "fillOpacity": 0.2,
   "fillRule": "evenodd",
   "lineCap": "round",
   "lineJoin": "round",
   "opacity": 1.0,
-  "radius": 97.5535,
+  "radius": 500,
   "stroke": true,
   "weight": 3
 }
-                ).addTo(map_cac890acb02243468c8bbfc4a93a1099);
+                ).addTo(map_b880abe6158c44b0a39ca0ecc7cd2448);
             
     
-            var popup_ee6ae0e4974d40b2ac1e622300682e16 = L.popup({maxWidth: '300'});
+            var popup_a58da0442ae84eab99807bd38b55caef = L.popup({maxWidth: '300'});
 
             
-                var html_c270f08204014b1e807f5305f38ad5c7 = $('<div id="html_c270f08204014b1e807f5305f38ad5c7" style="width: 100.0%; height: 100.0%;">千葉市</div>')[0];
-                popup_ee6ae0e4974d40b2ac1e622300682e16.setContent(html_c270f08204014b1e807f5305f38ad5c7);
+                var html_39eaedd8024a49bc9dc9ad04e7aa2993 = $('<div id="html_39eaedd8024a49bc9dc9ad04e7aa2993" style="width: 100.0%; height: 100.0%;">Laurelhurst Park</div>')[0];
+                popup_a58da0442ae84eab99807bd38b55caef.setContent(html_39eaedd8024a49bc9dc9ad04e7aa2993);
             
 
-            circle_marker_b108d69731b843768ae3d71351cb42be.bindPopup(popup_ee6ae0e4974d40b2ac1e622300682e16);
-
-            
-        
-    
-            var circle_marker_f495e355b4f84ffcb5892bfaff9fdf49 = L.circleMarker(
-                [34.996596,139.869906],
-                {
-  "bubblingMouseEvents": true,
-  "color": "red",
-  "dashArray": null,
-  "dashOffset": null,
-  "fill": true,
-  "fillColor": "red",
-  "fillOpacity": 0.2,
-  "fillRule": "evenodd",
-  "lineCap": "round",
-  "lineJoin": "round",
-  "opacity": 1.0,
-  "radius": 4.6349,
-  "stroke": true,
-  "weight": 3
-}
-                ).addTo(map_cac890acb02243468c8bbfc4a93a1099);
-            
-    
-            var popup_dcd795e65caa456b835c2c750c9302e8 = L.popup({maxWidth: '300'});
-
-            
-                var html_858a5fa0db1e443780fb8a680e3f1586 = $('<div id="html_858a5fa0db1e443780fb8a680e3f1586" style="width: 100.0%; height: 100.0%;">館山市</div>')[0];
-                popup_dcd795e65caa456b835c2c750c9302e8.setContent(html_858a5fa0db1e443780fb8a680e3f1586);
-            
-
-            circle_marker_f495e355b4f84ffcb5892bfaff9fdf49.bindPopup(popup_dcd795e65caa456b835c2c750c9302e8);
-
-            
-        
-    
-            var circle_marker_07cada8ac08b4fed8db3849db995bfcf = L.circleMarker(
-                [35.734795,140.826926],
-                {
-  "bubblingMouseEvents": true,
-  "color": "red",
-  "dashArray": null,
-  "dashOffset": null,
-  "fill": true,
-  "fillColor": "red",
-  "fillOpacity": 0.2,
-  "fillRule": "evenodd",
-  "lineCap": "round",
-  "lineJoin": "round",
-  "opacity": 1.0,
-  "radius": 6.1674,
-  "stroke": true,
-  "weight": 3
-}
-                ).addTo(map_cac890acb02243468c8bbfc4a93a1099);
-            
-    
-            var popup_13f50f7e6202441784d3e89e7a3d769c = L.popup({maxWidth: '300'});
-
-            
-                var html_4bff8dd9049a47d497328d447ab4ae8b = $('<div id="html_4bff8dd9049a47d497328d447ab4ae8b" style="width: 100.0%; height: 100.0%;">銚子市</div>')[0];
-                popup_13f50f7e6202441784d3e89e7a3d769c.setContent(html_4bff8dd9049a47d497328d447ab4ae8b);
-            
-
-            circle_marker_07cada8ac08b4fed8db3849db995bfcf.bindPopup(popup_13f50f7e6202441784d3e89e7a3d769c);
-
-            
-        
-    
-            var circle_marker_bf44c10163e94926a024c3c47bc4aab3 = L.circleMarker(
-                [35.653146,139.902058],
-                {
-  "bubblingMouseEvents": true,
-  "color": "red",
-  "dashArray": null,
-  "dashOffset": null,
-  "fill": true,
-  "fillColor": "red",
-  "fillOpacity": 0.2,
-  "fillRule": "evenodd",
-  "lineCap": "round",
-  "lineJoin": "round",
-  "opacity": 1.0,
-  "radius": 16.8169,
-  "stroke": true,
-  "weight": 3
-}
-                ).addTo(map_cac890acb02243468c8bbfc4a93a1099);
-            
-    
-            var popup_67d421683532489eae03beca72f88131 = L.popup({maxWidth: '300'});
-
-            
-                var html_3409b62d4e914d419610663749b92b67 = $('<div id="html_3409b62d4e914d419610663749b92b67" style="width: 100.0%; height: 100.0%;">浦安市</div>')[0];
-                popup_67d421683532489eae03beca72f88131.setContent(html_3409b62d4e914d419610663749b92b67);
-            
-
-            circle_marker_bf44c10163e94926a024c3c47bc4aab3.bindPopup(popup_67d421683532489eae03beca72f88131);
+            circle_marker_646e2680f83e4ce3baad70a152e51dd4.bindPopup(popup_a58da0442ae84eab99807bd38b55caef);
 
             
         
