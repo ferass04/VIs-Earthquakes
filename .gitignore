@@ -113,3 +113,4 @@ venv.bak/
 .mypy_cache/
 
 .DS_Store
+src/d3-bubble-map-populations.html
