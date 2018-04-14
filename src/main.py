@@ -4,7 +4,7 @@ from PyQt5.QtCore import *
 import geoplotlib
 from geoplotlib.utils import read_csv
 import sys
-from src.options import *
+from src.optionsUI import *
 
 
 class MainWindow(QMainWindow):

@@ -6,7 +6,7 @@ import json
 import csv
 import pandas as pd
 import io
-import src.ploty as t
+import src.plotlt_bubble_map as t
 
 
 class USAGS(object):
@@ -38,17 +38,22 @@ class USAGS(object):
         else:
             print("false")
 
-        # print(data)
+    def request(self):
+        r = requests.get(self.URL)
+        self.content = r.content
 
+        if r.status_code == 200:
+            return True
+        else:
+            return False
+
+    # initialize URL with range of time and magnitude
     def __init__(self, minmagnitude, maxmagnitude, start_t, end_t):
-        with requests.Session() as s:
-            download = s.get(
-                self.URL + "query?format=csv&starttime=" + start_t.toString() + "&endtime=" + end_t.toString()
-                + "&minmagnitude=" + str(minmagnitude) + "&maxmagnitude=" + str(maxmagnitude))
-            if download.status_code == 200:
-                csv_file = download.content
-                t.graph(csv_file)
+        self.URL += "query?format=csv&starttime=" + start_t + "&endtime=" + end_t + "&minmagnitude=" + str(minmagnitude) + "&maxmagnitude=" + str(maxmagnitude)
+        self.URL = self.URL.replace(" ", "T")
+        print(self.URL)
 
+        self.content = None
 
 
 class Event(object):
