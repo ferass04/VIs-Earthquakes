@@ -13,6 +13,8 @@ class Options(QFrame):
     def __init__(self, parent):
         super().__init__(parent)
 
+        self.max_sp = QSpinBox()
+        self.min_sp = QSpinBox()
         self.start_edit = QDateTimeEdit()
         self.end_edit = QDateTimeEdit()
         self.init_options()
@@ -41,10 +43,20 @@ class Options(QFrame):
         magnitude_label = QLabel('Magnitude:')
         mg_layout.addWidget(magnitude_label)
 
-        sp = QSpinBox()
-        sp.setRange(-1, 10)
-        sp.setValue(-1)
-        mg_layout.addWidget(sp)
+        min_label = QLabel('Minimum')
+        mg_layout.addWidget(min_label)
+
+        self.min_sp.setRange(-1, 10)
+        self.min_sp.setValue(-1)
+        mg_layout.addWidget(self.min_sp)
+        options_layout.addLayout(mg_layout)
+
+        max_label = QLabel('Maximum')
+        mg_layout.addWidget(max_label)
+
+        self.max_sp.setRange(-1, 10)
+        self.max_sp.setValue(10)
+        mg_layout.addWidget(self.max_sp)
         options_layout.addLayout(mg_layout)
 
         # create a layout for date and time options
@@ -114,13 +126,17 @@ class Options(QFrame):
         return rg_layout
 
     def button_clicked(self):
-        usags = Usags()
-        usags.getTodayEQ(self.start_edit.dateTime(), self.end_edit.dateTime());
+        minMag = self.min_sp.value()
+        maxMag = self.max_sp.value()
 
-        for event in usags.events:
-            print(event.id)
+        usags = USAGS(minMag, maxMag, self.start_edit.dateTime(), self.end_edit.dateTime())
+        # usags.getTodayEQ(minMag, maxMag, self.start_edit.dateTime(), self.end_edit.dateTime());
 
-        test(usags.events)
+
+        # for event in usags.events:
+        #     print(event.id)
+
+        # test(usags.events)
         # data = read_csv('data/bus.csv')
         # geoplotlib.dot(data)
         # geoplotlib.show()

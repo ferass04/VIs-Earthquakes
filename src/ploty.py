@@ -2,48 +2,60 @@ from plotly import __version__
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 from plotly.graph_objs import Scatter, Figure, Layout
 import pandas as pd
-
-from plotly.offline import init_notebook_mode, iplot
-from IPython.display import display, HTML
-
-import pandas as pd
+import datetime
+import numpy as np
+import io
 
 
-def test(events):
-    df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv')
-    df.head()
+def graph(csv_file):
 
-    df['text'] = df['name'] + '<br>Population ' + (df['pop'] / 1e6).astype(str) + ' million'
-    limits = [(0, 2), (3, 10), (11, 20), (21, 50), (50, 3000)]
-    colors = ["rgb(0,116,217)", "rgb(255,65,54)", "rgb(133,20,75)", "rgb(255,133,27)", "lightgrey"]
+    df = pd.read_csv(io.StringIO(csv_file.decode('utf-8')), header=0)
+    A = df.as_matrix()
+    time = A[:, 0]
+    latitude = A[:, 1]
+    longitude = A[:, 2]
+    depth = A[:, 3]
+    mag = A[:, 4]
+
+    df['text'] = df['place'] + '<br>Magnitude ' + (df['mag']).astype(str)
+    limits = [(0, len(longitude))]
+    colors = ["rgb(255,65,54)", "rgb(0,116,217)", "rgb(133,20,75)", "rgb(255,133,27)", "lightgrey"]
     cities = []
-    scale = 5000
-    lats = []
-    lons = []
-    for event in events:
-        lats.append(event.latitude)
+    scale = 100
 
-    for event in events:
-        lons.append(event.longitude)
+    for i in range(len(limits)):
+        lim = limits[i]
+        df_sub = df[lim[0]:lim[1]]
+        city = dict(
+            type='scattergeo',
+            locationmode='country names',
+            location=df['place'],
+            lon=df_sub['longitude'],
+            lat=df_sub['latitude'],
+            text=df_sub['text'],
+            marker=dict(
+                size=df_sub['mag'] * scale,
+                color=colors[i],
+                line=dict(width=0.5, color='rgb(40,40,40)'),
+                sizemode='area'
+            ),
+            name='{0} - {1}'.format(lim[0], lim[1]))
+        cities.append(city)
 
-    # layout = dict(
-    #     title='2014 US city populations<br>(Click legend to toggle traces)',
-    #     showlegend=True,
-    #     geo=dict(
-    #         scope='world',
-    #         showland=True,
-    #         landcolor='rgb(217, 217, 217)',
-    #         subunitwidth=1,
-    #         countrywidth=1,
-    #         subunitcolor="rgb(255, 255, 255)",
-    #         countrycolor="rgb(255, 255, 255)"
-    #     ),
-    # )
+    layout = dict(
+        title='2014 US city populations<br>(Click legend to toggle traces)',
+        showlegend=True,
+        geo=dict(
+            scope='world',
+            projection=dict(type='Orthographic'),
+            showland=True,
+            landcolor='rgb(217, 217, 217)',
+            subunitwidth=1,
+            countrywidth=1,
+            subunitcolor="rgb(255, 255, 255)",
+            countrycolor="rgb(255, 255, 255)"
+        ),
+    )
 
-    # fig = dict(data=cities, layout=layout)
-    # plot(fig, validate=False, filename='d3-bubble-map-populations')
-
-    trace = dict(
-        type='scattergeo',
-        lon=lons, lat=lats, mode='markers')
-    plot([trace])
+    fig = dict(data=cities, layout=layout)
+    plot(fig, validate=False, filename='d3-bubble-map-populations.html')

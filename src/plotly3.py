@@ -97,9 +97,6 @@ import datetime
 import numpy as np
 
 
-# df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv')
-# df.head()
-
 df = pd.read_csv("../data/query.csv", header=0)
 A = df.as_matrix()
 time = A[:, 0]

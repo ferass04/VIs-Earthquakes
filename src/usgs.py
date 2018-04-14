@@ -4,14 +4,19 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import json
 import csv
+import pandas as pd
+import io
+import src.ploty as t
 
 
-class Usags(object):
+class USAGS(object):
     URL = 'https://earthquake.usgs.gov/fdsnws/event/1/'
 
-    def getTodayEQ(self, start_t, end_t):
+    def getTodayEQ(self, minmagnitude, maxmagnitude, start_t, end_t):
+
         r = requests.get(
-            self.URL + "query?format=geojson&starttime=" + start_t.toString() + "&endtime=" + end_t.toString())
+            self.URL + "query?format=geojson&starttime=" + start_t.toString() + "&endtime=" + end_t.toString()
+            + "&minmagnitude=" + minmagnitude + "&maxmagnitude=" + maxmagnitude)
         if (r.status_code == 200):
             with requests.Session() as s:
                 download = s.get(
@@ -35,33 +40,39 @@ class Usags(object):
 
         # print(data)
 
-    def __init__(self):
-        self.data = []
-        # self.event
+    def __init__(self, minmagnitude, maxmagnitude, start_t, end_t):
+        with requests.Session() as s:
+            download = s.get(
+                self.URL + "query?format=csv&starttime=" + start_t.toString() + "&endtime=" + end_t.toString()
+                + "&minmagnitude=" + str(minmagnitude) + "&maxmagnitude=" + str(maxmagnitude))
+            if download.status_code == 200:
+                csv_file = download.content
+                t.graph(csv_file)
+
 
 
 class Event(object):
 
-    def __init__(self, event):
-        self.data = event[0]
-        self.latitude = event[1]
-        self.longitude = event[2]
-        self.depth = event[3]
-        self.mag = event[4]
-        self.magType = event[5]
-        self.nst = event[6]
-        self.gap = event[7]
-        self.dmin = event[8]
-        self.rms = event[9]
-        self.net = event[10]
-        self.id = event[11]
-        self.updated = event[12]
-        self.place = event[13]
-        self.type = event[14]
-        self.horizontalError = event[15]
-        self.depthError = event[16]
-        self.magError = event[17]
-        self.magNst = event[18]
-        self.status = event[19]
-        self.locationSource = event[20]
-        self.magSource = event[21]
+    def __init__(self, columns):
+        self.data = columns[0]
+        self.latitude = columns[1]
+        self.longitude = columns[2]
+        self.depth = columns[3]
+        self.mag = columns[4]
+        self.magType = columns[5]
+        self.nst = columns[6]
+        self.gap = columns[7]
+        self.dmin = columns[8]
+        self.rms = columns[9]
+        self.net = columns[10]
+        self.id = columns[11]
+        self.updated = columns[12]
+        self.place = columns[13]
+        self.type = columns[14]
+        self.horizontalError = columns[15]
+        self.depthError = columns[16]
+        self.magError = columns[17]
+        self.magNst = columns[18]
+        self.status = columns[19]
+        self.locationSource = columns[20]
+        self.magSource = columns[21]
