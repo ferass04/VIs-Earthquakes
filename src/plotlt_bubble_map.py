@@ -12,9 +12,10 @@ def convert_time(time):
 
 
 def generate_color(mag_group):
-    temp_color = ["rgba(255, 204, 255, 0.3)", "rgba(204, 204, 255, 0.3)", "rgba(51, 204, 255, 0.3)", "rgba(0, 153, 204, 0.4)",
-                  "rgba(0, 255, 204, 0.4)", "rgba(0, 255, 0, 0.4)", "rgba(255, 255, 0, 0.5)", "rgba(255, 153, 0, 0.5)",
-                  "rgba(204, 51, 0, 0.6)", "rgba(255, 51, 0, 0.6)"]
+    temp_color = ["rgba(255, 250, 250, 0.3)", "rgba(156, 174, 183, 0.3)", "rgba(137, 195, 235, 0.3)",
+                  "rgba(0, 121, 194, 0.4)",
+                  "rgba(112, 88, 163, 0.4)", "rgba(255, 165, 0, 0.4)", "rgba(240, 128, 128, 0.5)", "rgba(255, 153, 0, 0.5)",
+                  "rgba(255, 20, 147, 0.6)", "rgba(230, 0, 18, 0.6)"]
     color = temp_color[0]
     if mag_group == 2:
         color = temp_color[1]
@@ -25,20 +26,22 @@ def generate_color(mag_group):
 
 
 def graph(csv_file):
-
-    df = pd.read_csv(io.StringIO(csv_file.decode('utf-8')), header=0)
     # Load the data
     # df = pd.read_csv("../data/query.csv", header=0)
+    # df = pd.read_csv(csv_file, header=0)
+    df = pd.read_csv(io.StringIO(csv_file.decode('utf-8')), header=0)
 
     df["converted_time"] = pd.to_datetime(df["time"]).apply(
-        lambda df: datetime.datetime(year=df.year, month=df.month, day=df.day, hour=df.hour, minute=df.minute, second=df.second))
+        lambda df: datetime.datetime(year=df.year, month=df.month, day=df.day, hour=df.hour, minute=df.minute,
+                                     second=df.second))
     df['date_minus_time'] = df["converted_time"].apply(
         lambda df: datetime.datetime(year=df.year, month=df.month, day=df.day))
 
     # Color used to render circles. Color differs by magnitude.
-    colors = ["rgba(255, 204, 255, 0.1)", "rgba(204, 204, 255, 0.1)", "rgba(51, 204, 255, 0.1)", "rgba(0, 153, 204, 0.2)",
-              "rgba(0, 255, 204, 0.2)", "rgba(0, 255, 0, 0.2)", "rgba(255, 255, 0, 0.3)", "rgba(255, 153, 0, 0.3)",
-              "rgba(204, 51, 0, 0.5)", "rgba(255, 51, 0, 0.6)"]
+    colors = ["rgba(255, 250, 250, 0.3)", "rgba(156, 174, 183, 0.3)", "rgba(137, 195, 235, 0.3)",
+                  "rgba(0, 121, 194, 0.4)",
+                  "rgba(112, 88, 163, 0.4)", "rgba(224, 195, 140, 0.4)", "rgba(240, 128, 128, 0.5)", "rgba(255, 153, 0, 0.5)",
+                  "rgba(255, 20, 147, 0.6)", "rgba(230, 0, 18, 0.6)"]
 
     # Scale for the radius of circle.
     scale = 100
@@ -77,7 +80,7 @@ def graph(csv_file):
     mapbox_access_token = 'pk.eyJ1Ijoia21pbmFtaXNhd2EiLCJhIjoiY2pmeG82bWNmMDIyNzJ3b2RwcDFmOGFxMCJ9.pOlnj41jR4nhv8-dD7f_0Q'
 
     layout = dict(
-        height=800,
+        # height=800,
         margin=dict(t=0, b=0, l=0, r=0),
         font=dict(color='#FFFFFF', size=11),
         paper_bgcolor='#000000',
@@ -97,10 +100,12 @@ def graph(csv_file):
     # TODO: Update the mneu.
     updatemenus = list([
         dict(
+
             buttons=[
                 {
                     'args': [None, {'frame': {'duration': 500, 'redraw': False},
-                                    'fromcurrent': True, 'transition': {'duration': 300, 'easing': 'quadratic-in-out'}}],
+                                    'fromcurrent': True,
+                                    'transition': {'duration': 300, 'easing': 'quadratic-in-out'}}],
                     'label': 'Play',
                     'method': 'animate'
                 },
@@ -110,12 +115,12 @@ def graph(csv_file):
                     'label': 'Pause',
                     'method': 'animate'
                 }],
-            # pad={'r': 100, 't': 600},
+            # pad={'r': 10, 't': 87},
             direction='up',
-            x=0.9,
+            x=0.5,
             xanchor='left',
-            y=0.1,
-            yanchor='buttom',
+            y=0.05,
+            yanchor='bottom',
             bgcolor='#000000',
             active=99,
             bordercolor='#FFFFFF',
@@ -145,7 +150,7 @@ def graph(csv_file):
                 )
             ]),
             direction='up',
-            x=0.75,
+            x=0.85,
             xanchor='left',
             y=0.05,
             yanchor='bottom',
@@ -186,9 +191,9 @@ def graph(csv_file):
             lat=group['latitude'],
             lon=group['longitude'],
             text=group['place'] + '<br>Magnitude: ' + \
-            group['mag'].astype(str) + '<br>Depth: ' + \
-            group['depth'].astype(str)
-            + ' km <br>Time: ' + group['converted_time'].astype(str),
+                 group['mag'].astype(str) + '<br>Depth: ' + \
+                 group['depth'].astype(str)
+                 + ' km <br>Time: ' + group['converted_time'].astype(str),
             name='{0}'.format(name) + "<br><br><br>",
             marker=dict(
                 size=group['radius'],
@@ -206,7 +211,7 @@ def graph(csv_file):
         'yanchor': 'top',
         'xanchor': 'left',
         'currentvalue': {
-            'font': {'size': 20},
+            'font': {'color': 'magenta', 'size':24},
             'prefix': 'Date:',
             'visible': True,
             'xanchor': 'center'
@@ -219,16 +224,44 @@ def graph(csv_file):
         'steps': []
     }
 
-    grouped = df.groupby('date_minus_time')
+    count = 0
     for name, group in grouped:
+        if 1 <= count:
+            break
+
+        frame = {'data': [], 'name': str(name)}
+        trace = dict(
+            # mag = group[ group['key'] == name]['mag']
+            lat=group['latitude'],
+            lon=group['longitude'],
+            text=group['place'] + '<br>Magnitude: ' + \
+                 group['mag'].astype(str) + '<br>Depth: ' + \
+                 group['depth'].astype(str)
+                 + ' km <br>Time: ' + group['converted_time'].astype(str),
+            name="<br><br><br>" + '{0}'.format(name) + "<br><br><br>",
+            marker=dict(
+                size=group['radius'],
+                color=group['color'],
+                line=dict(width=0.5, color='rgb(40,40,40)'),
+                sizemode='area'
+            ),
+            type='scattermapbox'
+        )
+        data.append(trace)
+        frame['data'].append(trace)
+        frames.append(frame)
+        count += 1
+
+    grouped2 = df.groupby('date_minus_time')
+    for name, group in grouped2:
         frame = {'data': [], 'name': str(name)}
         trace = dict(
             # mag = group[ group['key'] == name]['mag']
             lat=group['latitude'],
             lon=group['longitude'],
             text=group['place'] + '<br>Magnitude: ' + group['mag'].astype(str) + '<br>Depth: ' +
-            group['depth'].astype(str) + ' km <br>Time: ' + group['time'],
-            name='{0}'.format(name) + "<br><br><br>",
+                 group['depth'].astype(str) + ' km <br>Time: ' + group['time'],
+            name='{0}'.format(name),
             marker=dict(
                 size=group['radius'],
                 color=group['color'],
@@ -249,6 +282,38 @@ def graph(csv_file):
             'method': 'animate'}
         sliders_dict['steps'].append(slider_step)
 
+    # count = 0
+    # for name, group in grouped:
+    #     if 1 <= count:
+    #         break
+    #
+    #     frame = {'data': [], 'name': str(name)}
+    #     trace = dict(
+    #         # mag = group[ group['key'] == name]['mag']
+    #         lat=group['latitude'],
+    #         lon=group['longitude'],
+    #         text=group['place'] + '<br>Magnitude: ' + \
+    #              group['mag'].astype(str) + '<br>Depth: ' + \
+    #              group['depth'].astype(str)
+    #              + ' km <br>Time: ' + group['converted_time'].astype(str),
+    #         name='{0}'.format(name) + "<br><br><br>",
+    #         marker=dict(
+    #             size=group['radius'],
+    #             color=group['color'],
+    #             line=dict(width=0.5, color='rgb(40,40,40)'),
+    #             sizemode='area'
+    #         ),
+    #         type='scattermapbox'
+    #     )
+    #     data.append(trace)
+    #     frame['data'].append(trace)
+    #     frames.append(frame)
+    #     count += 1
+
     layout['sliders'] = [sliders_dict]
     fig = dict(data=data, layout=layout, frames=frames)
     plot(fig, validate=False, filename='../html/earthquake_visualization.html')
+
+
+# graph(
+#     "https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=2011-02-01T00:00:00&endtime=2011-06-01T00:00:00&minmagnitude=3&maxmagnitude=10")
