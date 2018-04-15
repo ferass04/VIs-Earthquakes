@@ -4,15 +4,17 @@ import pandas as pd
 import datetime
 import io
 
+
 def convert_time(time):
     converted_time = datetime.datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ")
     # print(converted_time.date())
     return converted_time
 
+
 def generate_color(mag_group):
-    temp_color = ["rgba(255, 204, 255, 0.1)", "rgba(204, 204, 255, 0.1)", "rgba(51, 204, 255, 0.1)", "rgba(0, 153, 204, 0.2)",
-              "rgba(0, 255, 204, 0.2)", "rgba(0, 255, 0, 0.2)", "rgba(255, 255, 0, 0.3)", "rgba(255, 153, 0, 0.3)",
-              "rgba(204, 51, 0, 0.5)", "rgba(255, 51, 0, 0.6)"]
+    temp_color = ["rgba(255, 204, 255, 0.3)", "rgba(204, 204, 255, 0.3)", "rgba(51, 204, 255, 0.3)", "rgba(0, 153, 204, 0.4)",
+                  "rgba(0, 255, 204, 0.4)", "rgba(0, 255, 0, 0.4)", "rgba(255, 255, 0, 0.5)", "rgba(255, 153, 0, 0.5)",
+                  "rgba(204, 51, 0, 0.6)", "rgba(255, 51, 0, 0.6)"]
     color = temp_color[0]
     if mag_group == 2:
         color = temp_color[1]
@@ -20,7 +22,6 @@ def generate_color(mag_group):
         color = temp_color[2]
 
     return color
-
 
 
 def graph(csv_file):
@@ -31,7 +32,8 @@ def graph(csv_file):
 
     df["converted_time"] = pd.to_datetime(df["time"]).apply(
         lambda df: datetime.datetime(year=df.year, month=df.month, day=df.day, hour=df.hour, minute=df.minute, second=df.second))
-    df['date_minus_time'] = df["converted_time"].apply(lambda df: datetime.datetime(year=df.year, month=df.month, day=df.day))
+    df['date_minus_time'] = df["converted_time"].apply(
+        lambda df: datetime.datetime(year=df.year, month=df.month, day=df.day))
 
     # Color used to render circles. Color differs by magnitude.
     colors = ["rgba(255, 204, 255, 0.1)", "rgba(204, 204, 255, 0.1)", "rgba(51, 204, 255, 0.1)", "rgba(0, 153, 204, 0.2)",
@@ -42,15 +44,14 @@ def graph(csv_file):
     scale = 100
     circle_size = [1, 2, 4, 8, 15, 30, 50, 70, 140]
 
-
     # Label for each magnitude group.
     labels = ['Magnitude 1', 'Magnitude 2', 'Magnitude 3', 'Magnitude 4', 'Magnitude 5', 'Magnitude 6', 'Magnitude 7',
-            'Magnitude 8', 'Magnitude 9']
+              'Magnitude 8', 'Magnitude 9']
 
     # Group the data by magnitude range (e.g., M1-2, M2-3, M3-4, etc.)
-    df['key'] = pd.cut(df['mag'], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], labels=labels)
+    df['key'] = pd.cut(df['mag'], [1, 2, 3, 4, 5, 6,
+                                   7, 8, 9, 10], right=False, labels=labels)
     grouped = df.groupby('key')
-
 
     A = df.as_matrix()
     time = A[:, 0]
@@ -67,12 +68,10 @@ def graph(csv_file):
     for each_key in key:
         mag_group = labels.index(each_key)
         color_list.append(colors[mag_group])
-        radius_list.append(int(circle_size[mag_group]*scale))
+        radius_list.append(int(circle_size[mag_group] * scale))
 
     df['color'] = color_list
     df['radius'] = radius_list
-
-
 
     # mapboc API key.
     mapbox_access_token = 'pk.eyJ1Ijoia21pbmFtaXNhd2EiLCJhIjoiY2pmeG82bWNmMDIyNzJ3b2RwcDFmOGFxMCJ9.pOlnj41jR4nhv8-dD7f_0Q'
@@ -101,13 +100,13 @@ def graph(csv_file):
             buttons=[
                 {
                     'args': [None, {'frame': {'duration': 500, 'redraw': False},
-                             'fromcurrent': True, 'transition': {'duration': 300, 'easing': 'quadratic-in-out'}}],
+                                    'fromcurrent': True, 'transition': {'duration': 300, 'easing': 'quadratic-in-out'}}],
                     'label': 'Play',
                     'method': 'animate'
                 },
                 {
                     'args': [[None], {'frame': {'duration': 0, 'redraw': False}, 'mode': 'immediate',
-                    'transition': {'duration': 0}}],
+                                      'transition': {'duration': 0}}],
                     'label': 'Pause',
                     'method': 'animate'
                 }],
@@ -157,7 +156,7 @@ def graph(csv_file):
     ])
 
     annotations = list([
-        dict(text='World Epic Earthquakes (scroll to zoom)', font=dict(color='magenta',size=14), borderpad=10,
+        dict(text='World Epic Earthquakes (scroll to zoom)', font=dict(color='magenta', size=14), borderpad=10,
              x=0.05, y=0.05, xref='page', yref='page', align='left', showarrow=False, bgcolor='black'),
     ])
 
@@ -177,7 +176,6 @@ def graph(csv_file):
         'visible': True
     }
 
-
     # Store the map data
     data = []
 
@@ -187,8 +185,10 @@ def graph(csv_file):
             # mag = group[ group['key'] == name]['mag']
             lat=group['latitude'],
             lon=group['longitude'],
-            text=group['place'] + '<br>Magnitude: ' + group['mag'].astype(str) + '<br>Depth: ' + group['depth'].astype(str)
-                + ' km <br>Time: ' + group['converted_time'].astype(str),
+            text=group['place'] + '<br>Magnitude: ' + \
+            group['mag'].astype(str) + '<br>Depth: ' + \
+            group['depth'].astype(str)
+            + ' km <br>Time: ' + group['converted_time'].astype(str),
             name='{0}'.format(name) + "<br><br><br>",
             marker=dict(
                 size=group['radius'],
@@ -227,7 +227,7 @@ def graph(csv_file):
             lat=group['latitude'],
             lon=group['longitude'],
             text=group['place'] + '<br>Magnitude: ' + group['mag'].astype(str) + '<br>Depth: ' +
-                 group['depth'].astype(str) + ' km <br>Time: ' + group['time'],
+            group['depth'].astype(str) + ' km <br>Time: ' + group['time'],
             name='{0}'.format(name) + "<br><br><br>",
             marker=dict(
                 size=group['radius'],
@@ -251,5 +251,4 @@ def graph(csv_file):
 
     layout['sliders'] = [sliders_dict]
     fig = dict(data=data, layout=layout, frames=frames)
-    plot(fig, validate=False, filename='d3-bubble-map-populations.html')
-
+    plot(fig, validate=False, filename='../html/earthquake_visualization.html')

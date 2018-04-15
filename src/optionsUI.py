@@ -58,7 +58,7 @@ class Options(QFrame):
         mg_layout.addWidget(min_label)
 
         self.min_sp.setRange(0, 10)
-        self.min_sp.setValue(0)
+        self.min_sp.setValue(3)
         mg_layout.addWidget(self.min_sp)
         options_layout.addLayout(mg_layout)
 
@@ -81,8 +81,8 @@ class Options(QFrame):
 
         self.start_edit = QDateTimeEdit()
 
-        now = QDateTime.currentDateTime()
-        start_time = now.addDays(-1).toUTC()
+        # now = QDateTime.currentDateTime()
+        start_time = QDateTime(QDate(2011, 2, 1), QTime(0, 0, 0))
         self.start_edit.setDateTime(start_time)
 
         dt_layout.addWidget(self.start_edit)
@@ -91,7 +91,8 @@ class Options(QFrame):
         dt_layout.addWidget(date_time_label)
 
         self.end_edit = QDateTimeEdit()
-        self.end_edit.setDateTime(now.toUTC())
+        end_time = QDateTime(QDate(2011, 6, 1), QTime(0, 0, 0))
+        self.end_edit.setDateTime(end_time)
 
         dt_layout.addWidget(self.end_edit)
         options_layout.addLayout(dt_layout)
