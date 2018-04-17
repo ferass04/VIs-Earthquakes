@@ -68,7 +68,7 @@ class Options(QFrame):
         self.max_sp.setRange(-1, 10)
         self.max_sp.setValue(10)
         mg_layout.addWidget(self.max_sp)
-        options_layout.addLayout(mg_layout)
+        # options_layout.addLayout(mg_layout)
 
         # create a layout for date and time options
         dt_layout = QVBoxLayout()
@@ -97,17 +97,17 @@ class Options(QFrame):
         dt_layout.addWidget(self.end_edit)
         options_layout.addLayout(dt_layout)
 
-        rg_layout = QVBoxLayout()
+        # rg_layout = QVBoxLayout()
 
-        geographic_region_label = QLabel('Geographic Region:')
-        rg_layout.addWidget(geographic_region_label)
-
-        worldRadio = QRadioButton("World")
-        rg_layout.addWidget(worldRadio)
-
-        worldRadio = QRadioButton("USA")
-        rg_layout.addWidget(worldRadio)
-        options_layout.addLayout(rg_layout)
+        # geographic_region_label = QLabel('Geographic Region:')
+        # rg_layout.addWidget(geographic_region_label)
+        #
+        # worldRadio = QRadioButton("World")
+        # rg_layout.addWidget(worldRadio)
+        #
+        # worldRadio = QRadioButton("USA")
+        # rg_layout.addWidget(worldRadio)
+        # options_layout.addLayout(rg_layout)
 
         vis_button = QPushButton('Visualize')
         vis_button.clicked.connect(self.button_clicked)
