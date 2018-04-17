@@ -33,8 +33,8 @@ def get_update_menu(animated):
             xanchor='left',
             y=0.05,
             yanchor='bottom',
-            bgcolor='#000000',
-            active=99,
+
+            bgcolor='#1E90FF',
             bordercolor='#FFFFFF',
             font=dict(size=11)
         )
@@ -67,7 +67,7 @@ def get_update_menu(animated):
             xanchor='left',
             y=0.05,
             yanchor='bottom',
-            bgcolor='#000000',
+            bgcolor='#1E90FF',
             bordercolor='#FFFFFF',
             font=dict(size=11)
         )
@@ -148,7 +148,7 @@ def graph(csv_file):
         # height=800,
         margin=dict(t=0, b=0, l=0, r=0),
         font=dict(color='#FFFFFF', size=11),
-        paper_bgcolor='#000000',
+        paper_bgcolor='#484848',
         mapbox=dict(
             accesstoken=mapbox_access_token,
             bearing=0,

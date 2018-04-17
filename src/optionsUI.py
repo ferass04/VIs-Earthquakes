@@ -2,19 +2,14 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from qtpy import QtCore
+
 from src.usgs import *
 from src.plotlt_bubble_map import *
 import dateutil.parser
 
 
-def showdialog():
-    d = QDialog()
-    b1 = QPushButton("ok", d)
-    b1.move(50, 50)
-    d.setWindowTitle("Dialog")
-    QLabel('The data is too huge', d)
-    d.setWindowModality(Qt.ApplicationModal)
-    d.exec_()
+
 
 
 class Options(QFrame):
@@ -80,6 +75,7 @@ class Options(QFrame):
         dt_layout.addWidget(date_time_label)
 
         self.start_edit = QDateTimeEdit()
+        self.start_edit.setDisplayFormat("MM/dd/yyyy hh:mm AP")
 
         # now = QDateTime.currentDateTime()
         start_time = QDateTime(QDate(2011, 2, 1), QTime(0, 0, 0))
@@ -91,6 +87,8 @@ class Options(QFrame):
         dt_layout.addWidget(date_time_label)
 
         self.end_edit = QDateTimeEdit()
+        self.end_edit.setDisplayFormat("MM/dd/yyyy hh:mm AP")
+
         end_time = QDateTime(QDate(2011, 6, 1), QTime(0, 0, 0))
         self.end_edit.setDateTime(end_time)
 
@@ -122,6 +120,20 @@ class Options(QFrame):
         if usags.request():
             graph(usags.content)
         else:
-            showdialog()
+            self.showdialog()
 
         # usags.getTodayEQ(minMag, maxMag, self.start_edit.dateTime(), self.end_edit.dateTime());
+    def showdialog(self):
+        d = QDialog()
+        b1 = QPushButton("ok", d)
+        b1.move(120, 50)
+
+        b1.clicked.connect(d.hide)
+        d.setWindowTitle("Dialog")
+        label = QLabel('The data is too huge', d)
+        label.setGeometry(50, 0, 200, 50)
+        label.setAlignment(QtCore.Qt.AlignCenter)
+
+        d.setWindowModality(Qt.ApplicationModal)
+        d.exec_()
+
