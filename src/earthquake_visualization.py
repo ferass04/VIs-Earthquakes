@@ -53,7 +53,7 @@ def get_update_menu(animated):
             y=0.05,
             yanchor='bottom',
             bgcolor='#000000',
-            active=99,
+            # active=99,
             bordercolor='#FFFFFF',
             font=dict(size=11)
         )
