@@ -1,10 +1,4 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-import geoplotlib
-from geoplotlib.utils import read_csv
-import sys
-from src.optionsUI import *
+from optionsUI import *
 
 
 class MainWindow(QMainWindow):

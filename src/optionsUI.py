@@ -4,12 +4,10 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from qtpy import QtCore
 
-from src.usgs import *
-from src.plotlt_bubble_map import *
+from usgs import *
+from earthquake_visualization import *
 import dateutil.parser
-
-
-
+from color_bar import *
 
 
 class Options(QFrame):
@@ -78,7 +76,7 @@ class Options(QFrame):
         self.start_edit.setDisplayFormat("MM/dd/yyyy hh:mm AP")
 
         # now = QDateTime.currentDateTime()
-        start_time = QDateTime(QDate(2011, 2, 1), QTime(0, 0, 0))
+        start_time = QDateTime(QDate(2011, 2, 15), QTime(0, 0, 0))
         self.start_edit.setDateTime(start_time)
 
         dt_layout.addWidget(self.start_edit)
@@ -107,30 +105,52 @@ class Options(QFrame):
         # rg_layout.addWidget(worldRadio)
         # options_layout.addLayout(rg_layout)
 
-        vis_button = QPushButton('Visualize')
-        vis_button.clicked.connect(self.button_clicked)
+        vis_button = QPushButton('Visualize with Animation')
+        vis_button.clicked.connect(self.button_clicked_animate)
         main_layout.addLayout(options_layout)
         main_layout.addWidget(vis_button)
 
-    def button_clicked(self):
+        vis_button2 = QPushButton('Visualize All')
+        vis_button2.clicked.connect(self.button_clicked_show_all)
+        main_layout.addWidget(vis_button2)
+
+        vis_button2 = QPushButton('See the Color Map')
+        vis_button2.clicked.connect(self.show_colormap)
+        main_layout.addWidget(vis_button2)
+
+    def button_clicked_animate(self):
         start = dateutil.parser.parse(self.start_edit.dateTime().toString())
         end = dateutil.parser.parse(self.end_edit.dateTime().toString())
 
         usags = USAGS(self.min_sp.value(), self.max_sp.value(), str(start), str(end))
         if usags.request():
-            graph(usags.content)
+            graph(usags.content, True)
         else:
             self.showdialog()
 
-        # usags.getTodayEQ(minMag, maxMag, self.start_edit.dateTime(), self.end_edit.dateTime());
-    def showdialog(self):
+    def button_clicked_show_all(self):
+        start = dateutil.parser.parse(self.start_edit.dateTime().toString())
+        end = dateutil.parser.parse(self.end_edit.dateTime().toString())
+
+        usags = USAGS(self.min_sp.value(), self.max_sp.value(), str(start), str(end))
+        if usags.request():
+            graph(usags.content, False)
+        else:
+            self.showdialog()
+
+    @staticmethod
+    def show_colormap():
+        get_colorscale()
+
+    @staticmethod
+    def showdialog():
         d = QDialog()
         b1 = QPushButton("ok", d)
         b1.move(120, 50)
 
         b1.clicked.connect(d.hide)
         d.setWindowTitle("Dialog")
-        label = QLabel('The data is too huge', d)
+        label = QLabel('The data is too big. Please try again with shorter length of time or magnitude', d)
         label.setGeometry(50, 0, 200, 50)
         label.setAlignment(QtCore.Qt.AlignCenter)
 

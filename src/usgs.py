@@ -1,13 +1,5 @@
 import requests
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-import json
 import csv
-import pandas as pd
-import io
-import src.plotlt_bubble_map as t
-
 
 class USAGS(object):
     URL = 'https://earthquake.usgs.gov/fdsnws/event/1/'
