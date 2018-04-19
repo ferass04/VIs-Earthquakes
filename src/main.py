@@ -15,7 +15,7 @@ class MainWindow(QMainWindow):
 
         # self.tboard.msg2Statusbar[str].connect(self.statusbar.showMessage)
 
-        self.setMinimumSize(300, 300)
+        self.setMinimumSize(800, 400)
 
         self.setWindowTitle('Visualization of Epic Earthquakes')
 
@@ -28,6 +28,7 @@ class MainWindow(QMainWindow):
         size = self.geometry()
         self.move((screen.width() - size.width()) / 2,
                   (screen.height() - size.height()) / 2)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

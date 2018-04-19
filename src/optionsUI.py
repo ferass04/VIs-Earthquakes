@@ -5,7 +5,6 @@ from PyQt5.QtCore import *
 from qtpy import QtCore
 
 from usgs import *
-from earthquake_visualization import *
 import dateutil.parser
 from color_bar import *
 
@@ -122,21 +121,29 @@ class Options(QFrame):
         start = dateutil.parser.parse(self.start_edit.dateTime().toString())
         end = dateutil.parser.parse(self.end_edit.dateTime().toString())
 
-        usags = USAGS(self.min_sp.value(), self.max_sp.value(), str(start), str(end))
-        if usags.request():
-            graph(usags.content, True)
+        if end <= start:
+            # print("End date must be after the start date")
+            self.showdialog2()
         else:
-            self.showdialog()
+            usags = USAGS(self.min_sp.value(), self.max_sp.value(), str(start), str(end))
+            if usags.request():
+                graph(usags.content, True)
+            else:
+                self.showdialog()
 
     def button_clicked_show_all(self):
         start = dateutil.parser.parse(self.start_edit.dateTime().toString())
         end = dateutil.parser.parse(self.end_edit.dateTime().toString())
 
-        usags = USAGS(self.min_sp.value(), self.max_sp.value(), str(start), str(end))
-        if usags.request():
-            graph(usags.content, False)
+        if end <= start:
+            print("End date must be after the start date")
+            self.showdialog2()
         else:
-            self.showdialog()
+            usags = USAGS(self.min_sp.value(), self.max_sp.value(), str(start), str(end))
+            if usags.request():
+                graph(usags.content, False)
+            else:
+                self.showdialog()
 
     @staticmethod
     def show_colormap():
@@ -146,13 +153,36 @@ class Options(QFrame):
     def showdialog():
         d = QDialog()
         b1 = QPushButton("ok", d)
-        b1.move(120, 50)
 
         b1.clicked.connect(d.hide)
-        d.setWindowTitle("Dialog")
-        label = QLabel('The data is too big. Please try again with shorter length of time or magnitude', d)
-        label.setGeometry(50, 0, 200, 50)
+        d.setWindowTitle("Error")
+        label = QLabel('The data is too big to download.\nPlease select smaller range of dates or magnitudes', d)
+        label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         label.setAlignment(QtCore.Qt.AlignCenter)
+
+        layout = QGridLayout()
+        layout.addWidget(label, 0, 0)
+        layout.addWidget(b1, 1, 0)
+        d.setLayout(layout)
+
+        d.setWindowModality(Qt.ApplicationModal)
+        d.exec_()
+
+    @staticmethod
+    def showdialog2():
+        d = QDialog()
+        b1 = QPushButton("ok", d)
+
+        b1.clicked.connect(d.hide)
+        d.setWindowTitle("Error")
+        label = QLabel('End date must be after the start date.', d)
+        label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        label.setAlignment(QtCore.Qt.AlignCenter)
+
+        layout = QGridLayout()
+        layout.addWidget(label, 0, 0)
+        layout.addWidget(b1, 1, 0)
+        d.setLayout(layout)
 
         d.setWindowModality(Qt.ApplicationModal)
         d.exec_()
