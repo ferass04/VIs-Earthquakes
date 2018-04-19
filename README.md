@@ -1,6 +1,6 @@
 # World Epic Earthquake Visualization
 This application visualizes the earthquake around the world.<br>
-After user select the range of dates and magnitude,
+After user selects the range of dates and magnitude,
 our application fetches the earthquake data from United States Geological Survey (USGS.)<br>
 Please follow the following instructions to run this application.
 
@@ -73,7 +73,7 @@ Sidebar contains earthquake counts grouped by its magnitude.
 
 ## Color Map Demo
 User can see a scale that easily relates the size and color of the earthquakes with their magnitudes.
-<img width="1658" alt="scale" src="https://user-images.githubusercontent.com/16804024/38975570-955e015e-436b-11e8-99a4-833032ffb8d9.png">
+<img width="1665" alt="color_map" src="https://user-images.githubusercontent.com/16804024/38979085-72771eea-4376-11e8-9651-14ebc830469e.png">
 
 ## Earthquake Description
 User may hover onto each earthquake to see its details.

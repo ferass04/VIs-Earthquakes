@@ -32,6 +32,7 @@ def get_colorscale():
 
     layout = Layout(
         title='Color Bar and Circle Scale by Magnitude',
+        font=dict(color='magenta', size=14),
         paper_bgcolor='rgba(0,0,0,1)',
         plot_bgcolor='rgba(0,0,0,1)'
     )
