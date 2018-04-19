@@ -45,3 +45,6 @@ Please refer to the installation guide for details.
     ```
     
 ## Demo
+#### Animation Demo
+Our program animates earthquakes day by day.
+![animation_demo](https://user-images.githubusercontent.com/16804024/38974623-12b0dacc-4368-11e8-8697-218431c16669.gif)
