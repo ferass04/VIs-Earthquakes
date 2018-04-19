@@ -2,6 +2,7 @@
 This application visualizes the earthquake around the world.<br>
 After user selects the range of dates and magnitude,
 our application fetches the earthquake data from United States Geological Survey (USGS.)<br>
+As USGS has limits on download size, our application cannot fetch the data if the selected date range is too wide.<br>
 Please follow the following instructions to run this application.
 
 ## Requirements
